@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { appForm } from '../app.model';
 
 @Component({
   selector: 'app-approval-form',
@@ -7,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ApprovalFormComponent implements OnInit {
 
-  @Input() reportPendingApproval: {userName: string, time: string, report: string, approve: boolean};
+  @Input() reportPendingApproval: appForm;
   @Input() displayApprovalForm:boolean = false;
 
 
@@ -18,6 +19,11 @@ export class ApprovalFormComponent implements OnInit {
 
   reportApproved = (reportPendingApproval) => {
     reportPendingApproval.approve = true;
+    //todo
+    //findout why username is not displayed properly
+    //send approved report into node.js backend to be stored in json
+    //delete report when reject button is clicked
+    //emit event when edit is clicked
   }
 
 }

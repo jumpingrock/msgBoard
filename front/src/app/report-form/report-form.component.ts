@@ -8,7 +8,7 @@ import { appForm } from '../app.model';
   styleUrls: ['./report-form.component.css']
 })
 export class ReportFormComponent implements OnInit {
-
+  createReport: appForm;
 
   constructor() { }
 
@@ -17,6 +17,7 @@ export class ReportFormComponent implements OnInit {
 
   buttonOnClick = () => {
     prompt("hello there!");
+    this.createReport = new appForm("someusername", "timetimetime", "whatever is in the textarea");
 
   }
 
