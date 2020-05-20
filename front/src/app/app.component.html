@@ -1,3 +1,7 @@
 <app-nav-bar></app-nav-bar>
 <app-report-form></app-report-form>
-<app-approval-form></app-approval-form>
+<app-approval-form
+  *ngFor="let report of reportsPendingApproval"
+  [reportPendingApproval]="report"
+  [displayApprovalForm]="true"
+></app-approval-form>

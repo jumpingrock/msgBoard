@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-approval-form',
@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ApprovalFormComponent implements OnInit {
 
+  @Input() reportPendingApproval: {userName: string, time: string, report: string, approve: boolean};
+  @Input() displayApprovalForm:boolean = false;
+
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  reportApproved = (reportPendingApproval) => {
+    reportPendingApproval.approve = true;
   }
 
 }

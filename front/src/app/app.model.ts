@@ -5,10 +5,12 @@ export class appForm {
   // public time: Timestamp<String>;
   public time: string;
   public report: string;
+  public approve: boolean;
 
-  public constructor (name: string, time: string, report: string) {
-    this.username = name;
+  public constructor (userName: string, time: string, report: string) {
+    this.username = userName;
     this.time = time;
     this.report = report;
+    this.approve = false;
   }
 }

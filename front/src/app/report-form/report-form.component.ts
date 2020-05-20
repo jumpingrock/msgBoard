@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { appForm } from '../app.model';
+// import { Timestamp } from 'rxjs';
 
 @Component({
   selector: 'app-report-form',
@@ -8,8 +9,6 @@ import { appForm } from '../app.model';
 })
 export class ReportFormComponent implements OnInit {
 
-  report: string = "";
-  reportGen: appForm;
 
   constructor() { }
 
@@ -18,7 +17,7 @@ export class ReportFormComponent implements OnInit {
 
   buttonOnClick = () => {
     prompt("hello there!");
-    this.reportGen = new appForm(this.report, this.report, this.report)
+
   }
 
 }
