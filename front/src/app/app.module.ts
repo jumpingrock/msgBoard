@@ -7,6 +7,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { ReportFormComponent } from './report-form/report-form.component';
 import { ApprovalFormComponent } from './approval-form/approval-form.component';
 import { ViewReportComponent } from './view-report/view-report.component';
+import { ReportService } from './report.service';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { ViewReportComponent } from './view-report/view-report.component';
   imports: [
     BrowserModule, FormsModule
   ],
-  providers: [],
+  providers: [ReportService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

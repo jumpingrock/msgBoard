@@ -14,23 +14,9 @@
         </div>
         <div>
           <label for="name">Report Input</label>
-          <textarea
-            input="text"
-            id="form7"
-            class="md-textarea form-control"
-            rows="5"
-            required
-            [(ngModel)]="report"
-            name="report"
-          ></textarea>
+          <textarea input="text" class="md-textarea form-control" rows="5" required [(ngModel)]="report" name="report" ></textarea>
         </div>
-        <button
-          type="submit"
-          id="button7"
-          class="btn btn-primary"
-          (click)="buttonOnClick()">
-          Confirm
-        </button>
+        <button type="submit" id="button7" class="btn btn-primary" (click)="onCreateReport()"> Confirm </button>
       </div>
     </div>
   </div>

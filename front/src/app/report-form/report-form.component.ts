@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { NgModule }      from '@angular/core';
 import { appForm } from '../app.model';
-// import { Timestamp } from 'rxjs';
+import { ReportService } from '../report.service';
 
 @Component({
   selector: 'app-report-form',
@@ -13,31 +13,30 @@ export class ReportFormComponent implements OnInit {
   username: string;
   currentTimeStamp: Date;
   createReport: appForm;
-  @Output() reportCreated = new EventEmitter<appForm>();
-  @Input() reportForEdit: appForm;
 
-  if(reportForEdit) {
-    this.report = this.reportForEdit.report;
-    this.username = this.reportForEdit.username;
-    console.log("in report for edit");
+  constructor(private reportService: ReportService) {
+    this.reportService.editReport.subscribe(
+      (editReport: appForm) => {
+        this.report = editReport.report;
+        this.username = editReport.username;
+      }
+    )
   }
-
-  constructor() { }
 
   ngOnInit(): void {
   }
+  onCreateReport = () => {
 
-  buttonOnClick = () => {
-    // prompt("hello there!");
     this.currentTimeStamp = new Date();
     this.createReport = new appForm(this.username, this.currentTimeStamp.toString(), this.report);
-    this.reportCreated.emit(this.createReport);
+    this.reportService.reportCreated.emit(this.createReport);
     this.report = '';
     this.username = '';
 
+
   }
 
-  reportReturnForEdit = () => {
+  onReportToEdit () {
 
   }
 

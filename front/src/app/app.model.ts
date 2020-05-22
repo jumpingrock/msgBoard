@@ -2,7 +2,6 @@ import { Timestamp } from 'rxjs';
 
 export class appForm {
   public username: string;
-  // public time: Timestamp<String>;
   public time: string;
   public report: string;
   public approve: boolean;
@@ -13,6 +12,6 @@ export class appForm {
     this.time = time;
     this.report = report;
     this.approve = false;
-    // this.indexNumber = index;
+
   }
 }

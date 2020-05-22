@@ -21,5 +21,8 @@ export class NavBarComponent implements OnInit {
     this.showApproveReport = true;
     this.showCreateReport = false;
   }
+  onShowPendingReport () {
+
+  }
 
 }
