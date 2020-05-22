@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { appForm } from '../app.model';
 
 @Component({
@@ -9,7 +9,11 @@ import { appForm } from '../app.model';
 export class ApprovalFormComponent implements OnInit {
 
   @Input() reportPendingApproval: appForm;
+  // @Input() reportPendingApproval: appForm[];
   @Input() displayApprovalForm:boolean = false;
+  @Input() indexOfReport: number;
+
+  @Output() reportNumToDestroy = new EventEmitter<number>();
 
 
   constructor() { }
@@ -24,6 +28,14 @@ export class ApprovalFormComponent implements OnInit {
     //send approved report into node.js backend to be stored in json
     //delete report when reject button is clicked
     //emit event when edit is clicked
+  }
+
+  onReportPendingApproval = (reportReceived: appForm) => {
+
+  }
+
+  onDestroyReport = () => {
+    this.reportNumToDestroy.emit(this.indexOfReport);
   }
 
 }

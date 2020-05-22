@@ -1,8 +1,17 @@
 <app-nav-bar></app-nav-bar>
 <app-report-form (reportCreated)="onReportSubmitted($event)"></app-report-form>
 <app-approval-form
-  *ngFor="let report of reportsPendingApproval"
+  *ngFor="let report of reportsPendingApproval; let indexOfReport = index"
   [reportPendingApproval]="report"
   [displayApprovalForm]="true"
+  [indexOfReport]="indexOfReport"
   (editingReport)="onEditingReport($event)"
+  (reportNumToDestroy)="onReportDelete($event)"
 ></app-approval-form>
+<!-- <app-approval-form
+  (reportPassedToApprovalComponent)="onReportPendingApproval($event)"
+  (editingReport)="onEditingReport($event)"
+></app-approval-form> -->
+
+
+<h2></h2>

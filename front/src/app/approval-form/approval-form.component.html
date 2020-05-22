@@ -2,13 +2,14 @@
   <div class="row">
     <div class="col-xs-5">
       <p>Username: <b>{{ reportPendingApproval.username }}</b></p>
+      <p>Index of report: {{ indexOfReport }}</p>
       <p>Submitted time: {{ reportPendingApproval.time }}</p>
       <p>Report: {{ reportPendingApproval.report }}</p>
     </div>
     <div class="col-xs-5">
       <button class="btn btn-primary" (click)="reportApproved(reportPendingApproval)">Approve</button>
-      <button class="btn btn-primary">Reject</button>
-      <button class="btn btn-primary">Edit</button>
+      <button class="btn btn-primary" (click)="onDestroyReport()">Reject</button>
+      <button class="btn btn-primary" >Edit</button>
     </div>
   </div>
 </div>

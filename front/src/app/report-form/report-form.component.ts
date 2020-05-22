@@ -9,7 +9,8 @@ import { appForm } from '../app.model';
   styleUrls: ['./report-form.component.css']
 })
 export class ReportFormComponent implements OnInit {
-  report: string = '';
+  report: string;
+  username: string;
   currentTimeStamp: Date;
   createReport: appForm;
   @Output() reportCreated = new EventEmitter<appForm>();
@@ -21,10 +22,10 @@ export class ReportFormComponent implements OnInit {
   }
 
   buttonOnClick = () => {
-    prompt("hello there!");
-    this.currentTimeStamp = new Date()
-    this.createReport = new appForm('testname', this.currentTimeStamp.toString(), this.report);
-    this.reportCreated.emit(this.createReport)
+    // prompt("hello there!");
+    this.currentTimeStamp = new Date();
+    this.createReport = new appForm(this.username, this.currentTimeStamp.toString(), this.report);
+    this.reportCreated.emit(this.createReport);
 
   }
 

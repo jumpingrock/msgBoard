@@ -1,22 +1,37 @@
-<div class="container" >
-
+<div class="container">
   <div class="row">
     <div class="col-xs-5">
       <div class="md-form form-group">
-        <label for="name">Report Input</label>
-        <input
-        input="text"
-        id="form7"
-        class="md-textarea form-control"
-        rows="3" required
-        [(ngModel)]="report"
-        name="report"/>
-
-        <button type="submit" id="button7" class="btn btn-primary" (click)="buttonOnClick()">
+        <div class="row">
+          <div class="col-xs-5">
+            <label for="name">Username</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-5">
+            <input type="text" [(ngModel)]="username"/>
+          </div>
+        </div>
+        <div>
+          <label for="name">Report Input</label>
+          <textarea
+            input="text"
+            id="form7"
+            class="md-textarea form-control"
+            rows="5"
+            required
+            [(ngModel)]="report"
+            name="report"
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          id="button7"
+          class="btn btn-primary"
+          (click)="buttonOnClick()">
           Confirm
         </button>
       </div>
     </div>
   </div>
 </div>
-

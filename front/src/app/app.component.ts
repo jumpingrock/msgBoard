@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { appForm } from './app.model';
 
 @Component({
@@ -9,6 +9,8 @@ import { appForm } from './app.model';
 export class AppComponent {
   title = 'front';
   @Input() reportsPendingApproval: appForm[] = [(new appForm('ken', '123232', 'this it the report')),(new appForm('ken1', '123232', 'this it the report2'))];
+  // @Output() reportCreated = new EventEmitter<appForm>();
+  @Output() reportPassedToApprovalComponent = new EventEmitter<appForm>();
 
   //todo
   //event reciver from reportform and append report to reportsPendingApproval
@@ -16,10 +18,15 @@ export class AppComponent {
 
   onReportSubmitted = (reportSubmitted: appForm) => {
     this.reportsPendingApproval.push(reportSubmitted);
+    // this.reportPassedToApprovalComponent.emit(reportSubmitted);
   }
 
   onEditingReport = (reportToEdit: appForm) => {
 
+  }
+
+  onReportDelete = (reportNumber: number) => {
+    this.reportsPendingApproval.splice(reportNumber, 1);
   }
 
 }
