@@ -7,9 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavBarComponent implements OnInit {
   collapsed: boolean = true;
+  showCreateReport: boolean = true;
+  showApproveReport: boolean = true;
   constructor() { }
 
   ngOnInit(): void {
+  }
+  onShowCreateReport () {
+    this.showApproveReport = false;
+    this.showCreateReport = true;
+  }
+  onShowApproveReport () {
+    this.showApproveReport = true;
+    this.showCreateReport = false;
   }
 
 }

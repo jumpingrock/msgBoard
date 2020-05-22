@@ -14,4 +14,12 @@ export class AppComponent {
   //event reciver from reportform and append report to reportsPendingApproval
   //event emitter to reportform if edit is clicked
 
+  onReportSubmitted = (reportSubmitted: appForm) => {
+    this.reportsPendingApproval.push(reportSubmitted);
+  }
+
+  onEditingReport = (reportToEdit: appForm) => {
+
+  }
+
 }

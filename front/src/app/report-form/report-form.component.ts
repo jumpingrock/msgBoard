@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { NgModule }      from '@angular/core';
 import { appForm } from '../app.model';
 // import { Timestamp } from 'rxjs';
 
@@ -8,7 +9,11 @@ import { appForm } from '../app.model';
   styleUrls: ['./report-form.component.css']
 })
 export class ReportFormComponent implements OnInit {
+  report: string = '';
+  currentTimeStamp: Date;
   createReport: appForm;
+  @Output() reportCreated = new EventEmitter<appForm>();
+
 
   constructor() { }
 
@@ -17,7 +22,9 @@ export class ReportFormComponent implements OnInit {
 
   buttonOnClick = () => {
     prompt("hello there!");
-    this.createReport = new appForm("someusername", "timetimetime", "whatever is in the textarea");
+    this.currentTimeStamp = new Date()
+    this.createReport = new appForm('testname', this.currentTimeStamp.toString(), this.report);
+    this.reportCreated.emit(this.createReport)
 
   }
 
