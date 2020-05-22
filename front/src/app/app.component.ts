@@ -11,9 +11,10 @@ export class AppComponent {
   @Input() reportsPendingApproval: appForm[] = [(new appForm('ken', '123232', 'this it the report')),(new appForm('ken1', '123232', 'this it the report2'))];
   // @Output() reportCreated = new EventEmitter<appForm>();
   @Output() reportPassedToApprovalComponent = new EventEmitter<appForm>();
+  @Output() reportReturnedToEditComponent = new EventEmitter<appForm>();
 
   //todo
-  //event reciver from reportform and append report to reportsPendingApproval
+  //event reciver from reportform and append report to reportsPendingApproval -- Done
   //event emitter to reportform if edit is clicked
 
   onReportSubmitted = (reportSubmitted: appForm) => {
@@ -22,7 +23,7 @@ export class AppComponent {
   }
 
   onEditingReport = (reportToEdit: appForm) => {
-
+    this.reportReturnedToEditComponent.emit(reportToEdit);
   }
 
   onReportDelete = (reportNumber: number) => {

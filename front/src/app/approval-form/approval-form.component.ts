@@ -14,28 +14,33 @@ export class ApprovalFormComponent implements OnInit {
   @Input() indexOfReport: number;
 
   @Output() reportNumToDestroy = new EventEmitter<number>();
-
+  @Output() reportForEdit = new EventEmitter<appForm>();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  reportApproved = (reportPendingApproval) => {
-    reportPendingApproval.approve = true;
-    //todo
-    //findout why username is not displayed properly
-    //send approved report into node.js backend to be stored in json
-    //delete report when reject button is clicked
-    //emit event when edit is clicked
-  }
+  reportApproved = () => {
+    this.reportPendingApproval.approve = true;
 
-  onReportPendingApproval = (reportReceived: appForm) => {
+    //todo
+    //findout why username is not displayed properly -- Done
+    //send approved report into node.js backend to be stored in json
+    //delete report when reject button is clicked -- Done
+    //emit event when edit is clicked
+    //send data to backend node.js once report is completed
+    //delete report from q once approved --done
+    this.reportNumToDestroy.emit(this.indexOfReport);
 
   }
 
   onDestroyReport = () => {
     this.reportNumToDestroy.emit(this.indexOfReport);
+  }
+
+  onReportForEdit = () => {
+    this.reportForEdit.emit(this.reportPendingApproval);
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { NgModule }      from '@angular/core';
 import { appForm } from '../app.model';
 // import { Timestamp } from 'rxjs';
@@ -14,7 +14,13 @@ export class ReportFormComponent implements OnInit {
   currentTimeStamp: Date;
   createReport: appForm;
   @Output() reportCreated = new EventEmitter<appForm>();
+  @Input() reportForEdit: appForm;
 
+  if(reportForEdit) {
+    this.report = this.reportForEdit.report;
+    this.username = this.reportForEdit.username;
+    console.log("in report for edit");
+  }
 
   constructor() { }
 
@@ -26,6 +32,12 @@ export class ReportFormComponent implements OnInit {
     this.currentTimeStamp = new Date();
     this.createReport = new appForm(this.username, this.currentTimeStamp.toString(), this.report);
     this.reportCreated.emit(this.createReport);
+    this.report = '';
+    this.username = '';
+
+  }
+
+  reportReturnForEdit = () => {
 
   }
 
