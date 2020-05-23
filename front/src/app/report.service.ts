@@ -55,7 +55,13 @@ export class ReportService {
       // this.reportUpdated.next([...this.reportsPendingApproval])
     });
   }
+  deleteReportFromPendingApproval = (reportId: number) => {
+    this.http.delete<{message: string}>
+    ('http://localhost:3000/api/deletereport/'+reportId).subscribe((resData) => {
+      console.log(resData.message);
 
+    });
+  }
 
   getReportsPendingEdit = () => {
     return this.reportsPendingEdit;

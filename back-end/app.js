@@ -33,6 +33,26 @@ app.post("/api/submitreport", (req, res, next) => {
         });
     });
 })
+app.delete("/api/deletereport/:id", (req, res, next) => {
+    console.log(req.params.id);
+    let reportNum = req.params.id
+    let reports = [];
+    fs.readFile('reportspending.json', (err, data) => {
+        if(err) throw err;
+        this.reports = JSON.parse(data);
+
+        console.log(reports);
+        this.reports.splice(reportNum,1);
+
+        data = JSON.stringify(this.reports, null, 2);
+        fs.writeFile('reportspending.json', data, (err) => {
+            if(err) throw err
+        })
+        res.status(201).json({
+        message: 'Report deleted successfully!'
+        });
+    });
+})
 
 app.get('/api/reportsapproved',(req, res, next) => {
     var reportsSent;

@@ -1,25 +1,5 @@
 [
   {
-    "username": "abcapprove",
-    "time": "timmeeee",
-    "report": "reporttt",
-    "approve": true,
-    "index": 0
-  },
-  {
-    "username": "123kenapprove",
-    "time": "timmeeee1212",
-    "report": "reporttt2",
-    "approve": true,
-    "index": 1
-  },
-  {
-    "username": "ddd",
-    "time": "Sat May 23 2020 21:24:52 GMT+0800 (Singapore Standard Time)",
-    "report": "ddd",
-    "approve": 2
-  },
-  {
     "username": "666",
     "time": "Sat May 23 2020 21:26:18 GMT+0800 (Singapore Standard Time)",
     "report": "66666",
