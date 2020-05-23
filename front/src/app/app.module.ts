@@ -23,7 +23,8 @@ const appRoutes: Routes = [
   {path: 'editreport', component: ReportFormComponent},
   {path: 'createreport', component: ReportFormComponent},
   {path: 'signup', component: SignupComponent},
-  {path: 'login', component: LoginComponent}
+  {path: 'login', component: LoginComponent},
+  {path: 'logout', component: LoginComponent}
 ]
 
 @NgModule({

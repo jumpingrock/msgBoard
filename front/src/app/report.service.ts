@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { appForm } from './app.model';
+import { appForm, userForm } from './app.model';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 
@@ -10,7 +10,9 @@ export class ReportService {
   private reportsPendingApproval: appForm[];
   private reportsPendingEdit: appForm[] = [];
   private reportsApproved: appForm[] = [];
+  private userLoginInfo: userForm;
   reportUpdated = new Subject<appForm[]>();
+  userLogon = new Subject<userForm>();
   reportCreated = new EventEmitter<appForm>();
   editReport = new EventEmitter<appForm>();
   deleteReport = new EventEmitter<number>();
@@ -83,6 +85,26 @@ export class ReportService {
     console.log(report);
     this.reportsPendingEdit.push(report);
     console.log(this.reportsPendingEdit);
+  }
+
+  setUserLoginInfo = (info: userForm) => {
+    this.userLoginInfo = info;
+    console.log(info);
+  }
+  getUserLoginInfo = () => {
+    return this.userLoginInfo;
+  }
+  userLoginListener () {
+    return this.userLogon.asObservable();
+  }
+  userLogin = (user: userForm) => {
+    // return this.reportsPendingApproval;
+    this.http.post<{message: string, logonInfo: appForm}>
+    ('http://localhost:3000/api/login', user).subscribe((resData) => {
+      console.log(resData.message);
+      // this.reportsPendingApproval = resData.reports;
+      // this.reportUpdated.next([...this.reportsPendingApproval])
+    });
   }
 
 }

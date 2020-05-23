@@ -1,4 +1,3 @@
-import { Timestamp } from 'rxjs';
 
 export class appForm {
   public username: string;
@@ -15,4 +14,25 @@ export class appForm {
     this.indexNumber = null;
 
   }
+}
+
+export class userForm {
+  public username: string;
+  public password: string;
+  public loginTime: string;
+  private loginType: string;
+
+  setLoginType = (type) =>{
+    this.loginType = type;
+  }
+  getLoginType = () => {
+    return this.loginType
+  }
+
+  public constructor(name: string, pass: string){
+    this.username = name;
+    this.password = pass;
+
+  }
+
 }

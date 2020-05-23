@@ -1,1 +1,15 @@
-<p>signup works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <form class="textalignment">
+        <div class="col-xs-12">
+          <label for="userid" class="col-xs-1">Username </label>
+          <input type="userid" placeholder="userid" class='col-xs-3' [(ngModel)]="username">
+          <label for="password" class="col-xs-1">Password </label>
+          <input type="password" placeholder="password" class='col-xs-3' [(ngModel)]="password">
+          <button class="btn-group btn-group-sm" (click)="onSignUpClicked()">Sign up</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

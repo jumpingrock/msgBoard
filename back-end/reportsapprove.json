@@ -3,35 +3,35 @@
     "username": "666",
     "time": "Sat May 23 2020 21:26:18 GMT+0800 (Singapore Standard Time)",
     "report": "66666",
-    "approve": false,
+    "approve": true,
     "indexNumber": 2
   },
   {
     "username": "yuyu",
     "time": "Sat May 23 2020 21:27:47 GMT+0800 (Singapore Standard Time)",
     "report": "uyuyu",
-    "approve": false,
+    "approve": true,
     "indexNumber": 3
   },
   {
     "username": "dasagcasd",
     "time": "Sat May 23 2020 22:25:19 GMT+0800 (Singapore Standard Time)",
     "report": "acasgvagbagaf",
-    "approve": false,
+    "approve": true,
     "indexNumber": 4
   },
   {
     "username": "dasagcasd",
     "time": "Sat May 23 2020 22:25:19 GMT+0800 (Singapore Standard Time)",
     "report": "acasgvagbagaf",
-    "approve": false,
+    "approve": true,
     "indexNumber": 5
   },
   {
     "username": "dddddd",
     "time": "Sat May 23 2020 22:33:25 GMT+0800 (Singapore Standard Time)",
     "report": "dddddssssss",
-    "approve": false,
+    "approve": true,
     "indexNumber": 6
   }
 ]
