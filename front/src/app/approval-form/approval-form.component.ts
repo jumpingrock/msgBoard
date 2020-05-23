@@ -26,15 +26,10 @@ export class ApprovalFormComponent implements OnInit {
   }
   indexOfReport:number = this.reportsPendingApproval.length;
 
-//todo
-    //send data to backend node.js once report is completed
-    //send approved report into node.js backend to be stored in json
-    //create router to only show approprate component --Done
-
   reportApproved = (indexOfReport) => {
-    // this.reportPendingApproval.approve = true;
-    // this.reportService.deleteReport.emit(this.indexOfReport);
-    // this.reportService.addReportToPendingApproval(this.reportsPendingApproval[indexOfReport]);
+    this.reportService.approveReportFromPendingApproval(this.reportsPendingApproval[indexOfReport]);
+    this.reportService.deleteReportFromPendingApproval(indexOfReport);
+    this.reportsPendingApproval.splice(indexOfReport, 1);
   }
 
   onDestroyReport = (indexToRemove) => {

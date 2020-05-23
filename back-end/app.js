@@ -33,6 +33,29 @@ app.post("/api/submitreport", (req, res, next) => {
         });
     });
 })
+app.put("/api/approvereport", (req, res, next) => {
+    let report = req.body;
+    let reports = [];
+    let reportNum = report.indexNumber
+    
+    fs.readFile('reportsapprove.json', (err, data) => {
+        if(err) throw err;
+        this.reports = JSON.parse(data);
+
+        console.log(reports);
+        report.indexNumber = this.reports.length;
+        this.reports.push(report);
+
+        data = JSON.stringify(this.reports, null, 2);
+        fs.writeFile('reportsapprove.json', data, (err) => {
+            if(err) throw err
+        })
+        res.status(201).json({
+        message: 'Report added successfully!'
+        });
+    });
+})
+
 app.delete("/api/deletereport/:id", (req, res, next) => {
     console.log(req.params.id);
     let reportNum = req.params.id
@@ -72,6 +95,7 @@ app.get('/api/reportspending',(req, res, next) => {
     var reportsSent;
     fs.readFile('reportspending.json', (err, data) => {
         if(err) throw err;
+        console.log(data);
         reportsSent = JSON.parse(data);
         console.log(reportsSent);
         res.status(200).json({
