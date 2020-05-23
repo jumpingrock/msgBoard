@@ -19,7 +19,6 @@ export class ReportFormComponent implements OnInit {
   constructor(private reportService: ReportService, private router: Router) {  }
 
   ngOnInit(): void {
-    console.log(this.router.url);
     if(this.router.url === '/editreport') {
       this.editReport = this.reportService.getReportsPendingEdit();
       this.report = this.editReport[0].report;
@@ -30,7 +29,8 @@ export class ReportFormComponent implements OnInit {
 
     this.currentTimeStamp = new Date();
     this.createReport = new appForm(this.username, this.currentTimeStamp.toString(), this.report);
-    this.reportService.reportCreated.emit(this.createReport);
+    // this.reportService.reportCreated.emit(this.createReport);
+    this.reportService.addReportToPendingApproval(this.createReport);
 
 
     if(this.router.url === '/editreport' && this.editReport.length >= 2){

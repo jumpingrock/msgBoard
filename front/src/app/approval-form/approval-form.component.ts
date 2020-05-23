@@ -18,14 +18,11 @@ export class ApprovalFormComponent implements OnInit {
 
   constructor(private reportService: ReportService, private router: Router) {  }
   ngOnInit(): void {
-      this.reportService.getReportsPendingApproval();
-      this.reportSub = this.reportService.getReportPendingApprovalListener()
-        .subscribe((reports: appForm[]) => {
-          this.reportsPendingApproval = reports
-        })
-
-
-
+    this.reportService.getReportsPendingApproval();
+    this.reportSub = this.reportService.getReportPendingApprovalListener()
+      .subscribe((reports: appForm[]) => {
+        this.reportsPendingApproval = reports
+    })
   }
   indexOfReport:number = this.reportsPendingApproval.length;
 
@@ -37,6 +34,7 @@ export class ApprovalFormComponent implements OnInit {
   reportApproved = (indexOfReport) => {
     // this.reportPendingApproval.approve = true;
     // this.reportService.deleteReport.emit(this.indexOfReport);
+    // this.reportService.addReportToPendingApproval(this.reportsPendingApproval[indexOfReport]);
   }
 
   onDestroyReport = (indexToRemove) => {
@@ -50,11 +48,6 @@ export class ApprovalFormComponent implements OnInit {
     this.reportService.onReportRejected(indexToRemove);
     this.reportsPendingApproval.splice(indexToRemove, 1);
 
-
   }
 
 }
-    //findout why username is not displayed properly -- Done
-    //delete report when reject button is clicked -- Done
-    //emit event when edit is clicked --done
-    //delete report from q once approved --done

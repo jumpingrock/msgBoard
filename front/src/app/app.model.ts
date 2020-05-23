@@ -12,6 +12,7 @@ export class appForm {
     this.time = time;
     this.report = report;
     this.approve = false;
+    this.indexNumber = null;
 
   }
 }

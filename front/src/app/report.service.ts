@@ -46,6 +46,15 @@ export class ReportService {
       this.reportUpdated.next([...this.reportsPendingApproval])
     });
   }
+  addReportToPendingApproval = (report: appForm) => {
+    // return this.reportsPendingApproval;
+    this.http.post<{message: string}>
+    ('http://localhost:3000/api/submitreport', report).subscribe((resData) => {
+      console.log(resData.message);
+      // this.reportsPendingApproval = resData.reports;
+      // this.reportUpdated.next([...this.reportsPendingApproval])
+    });
+  }
 
 
   getReportsPendingEdit = () => {
