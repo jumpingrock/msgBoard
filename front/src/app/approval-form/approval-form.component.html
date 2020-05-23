@@ -1,16 +1,19 @@
-<div class="container" >
+<div class="container" *ngIf="routeURL === '/reportapproval'">
   <div class="row" *ngFor="let report of reportsPendingApproval; let indexOfReport = index">
-      <div class="col-xs-5">
-        <p>Username: <b>{{ report.username }}</b></p>
-        <p>Index of report: {{ indexOfReport }}</p>
-        <p>Submitted time: {{ report.time }}</p>
-        <p>Report: {{ report.report }}</p>
-      </div>
-      <div class="col-xs-5">
-        <button class="btn btn-primary" (click)="reportApproved()">Approve</button>
-        <button class="btn btn-primary" (click)="onDestroyReport()">Reject</button>
-        <button class="btn btn-primary" (click)="onReportForEdit(indexOfReport)">Edit</button>
-      </div>
+    <div class="col-xs-5">
+      <p>Username: <b>{{ report.username }}</b></p>
+      <p>Index of report: {{ indexOfReport }}</p>
+      <p>Submitted time: {{ report.time }}</p>
+      <p>Report: {{ report.report }}</p>
+      <button class="btn btn-primary" (click)="reportApproved(indexOfReport)">Approve</button>
+      <button class="btn btn-primary" (click)="onDestroyReport(indexOfReport)">Reject</button>
+      <button class="btn btn-primary" (click)="onReportForEdit(indexOfReport)">Edit</button>
     </div>
-
+    <div class="col-xs-7">
+      <label for="report">Report</label>
+      <p>{{ report.report }}</p>
+    </div>
+  </div>
 </div>
+
+

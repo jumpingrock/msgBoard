@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -27,7 +28,7 @@ const appRoutes: Routes = [
     ViewReportComponent
   ],
   imports: [
-    BrowserModule, FormsModule, RouterModule.forRoot(appRoutes)
+    BrowserModule, FormsModule, RouterModule.forRoot(appRoutes),HttpClientModule
   ],
   providers: [ReportService],
   bootstrap: [AppComponent]

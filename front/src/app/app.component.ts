@@ -12,18 +12,16 @@ export class AppComponent {
   constructor(private reportService: ReportService) {
     reportService.reportCreated.subscribe(
       (newReport: appForm) => {this.onReportSubmitted(newReport);})
-    // reportService.deleteReport.subscribe(
-    //   (reportNumber: number) => {this.onReportDelete(reportNumber);})
 
   }
 
   title = 'Reporting App';
-  reportsPendingApproval: appForm[] = this.reportService.getReportsPendingApproval();
+  // reportsPendingApproval: appForm[] = this.reportService.getReportsPendingApproval();
 
   //todo
 
   onReportSubmitted = (reportSubmitted: appForm) => {
-    this.reportsPendingApproval.push(reportSubmitted);
+    // this.reportsPendingApproval.push(reportSubmitted);
 
   }
 
