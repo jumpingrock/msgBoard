@@ -12,25 +12,22 @@ export class AppComponent {
   constructor(private reportService: ReportService) {
     reportService.reportCreated.subscribe(
       (newReport: appForm) => {this.onReportSubmitted(newReport);})
-    reportService.deleteReport.subscribe(
-      (reportNumber: number) => {this.onReportDelete(reportNumber);})
+    // reportService.deleteReport.subscribe(
+    //   (reportNumber: number) => {this.onReportDelete(reportNumber);})
 
   }
 
   title = 'Reporting App';
-  reportsPendingApproval: appForm[] = [(new appForm('ken', '123232', 'this it the report')),(new appForm('ken1', '123232', 'this it the report2'))];
-  @Output() reportPassedToApprovalComponent = new EventEmitter<appForm>();
-  @Output() reportReturnedToEditComponent = new EventEmitter<appForm>();
+  reportsPendingApproval: appForm[] = this.reportService.getReportsPendingApproval();
 
   //todo
 
   onReportSubmitted = (reportSubmitted: appForm) => {
     this.reportsPendingApproval.push(reportSubmitted);
+
   }
 
-  onReportDelete = (reportNumber: number) => {
-    this.reportsPendingApproval.splice(reportNumber, 1);
-  }
+
 
 }
   //event reciver from reportform and append report to reportsPendingApproval -- Done

@@ -12,9 +12,10 @@
       (window:resize)="collapsed = true"
     >
       <ul class="nav navbar-nav">
-        <li><a href="#" (click)='onShowCreateReport()'>Create Report</a></li>
-        <li><a href="#" (click)='onShowPendingReport()'>Report Approval</a></li>
-        <li><a href="#" (click)='onShowApproveReport()'>View Report</a></li>
+        <li><a routerLink='/createreport' routerLinkActive='active'>Create Report</a></li>
+        <li><a routerLink='/editreport' routerLinkActive='active'>Edit Report</a></li>
+        <li><a routerLink="/reportapproval" routerLinkActive='active'>Report Approval</a></li>
+        <li><a routerLink="/viewreport" routerLinkActive='active'>View Report</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">

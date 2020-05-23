@@ -1,7 +1,7 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { NgModule }      from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { appForm } from '../app.model';
 import { ReportService } from '../report.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-report-form',
@@ -13,30 +13,34 @@ export class ReportFormComponent implements OnInit {
   username: string;
   currentTimeStamp: Date;
   createReport: appForm;
+  editReport: appForm[];
+  editReportIndex: number;
 
-  constructor(private reportService: ReportService) {
-    this.reportService.editReport.subscribe(
-      (editReport: appForm) => {
-        this.report = editReport.report;
-        this.username = editReport.username;
-      }
-    )
-  }
+  constructor(private reportService: ReportService, private router: Router) {  }
 
   ngOnInit(): void {
+    console.log(this.router.url);
+    if(this.router.url === '/editreport') {
+      this.editReport = this.reportService.getReportsPendingEdit();
+      this.report = this.editReport[0].report;
+      this.username = this.editReport[0].username
+    }
   }
-  onCreateReport = () => {
+  buttonOnClick = () => {
 
     this.currentTimeStamp = new Date();
     this.createReport = new appForm(this.username, this.currentTimeStamp.toString(), this.report);
     this.reportService.reportCreated.emit(this.createReport);
-    this.report = '';
-    this.username = '';
 
 
-  }
-
-  onReportToEdit () {
+    if(this.router.url === '/editreport' && this.editReport.length >= 2){
+      this.editReport.splice(0,1);
+      this.report = this.editReport[0].report;
+      this.username = this.editReport[0].username;
+    }else {
+      this.report = '';
+      this.username = '';
+    }
 
   }
 

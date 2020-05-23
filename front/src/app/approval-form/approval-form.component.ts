@@ -11,12 +11,13 @@ export class ApprovalFormComponent implements OnInit {
 
   @Input() reportPendingApproval: appForm;
   @Input() displayApprovalForm:boolean = false;
-  @Input() indexOfReport: number;
+  // @Input() indexOfReport: number;
 
-  constructor(private reportService: ReportService) { }
+  constructor(private reportService: ReportService) {  }
+  ngOnInit(): void {  }
 
-  ngOnInit(): void {
-  }
+  reportsPendingApproval: appForm[] = this.reportService.getReportsPendingApproval();
+  indexOfReport:number = this.reportService.getReportPendingApprovalLength();
 //todo
     //send data to backend node.js once report is completed
     //send approved report into node.js backend to be stored in json
@@ -33,9 +34,12 @@ export class ApprovalFormComponent implements OnInit {
     this.reportService.deleteReport.emit(this.indexOfReport);
   }
 
-  onReportForEdit = () => {
-    this.reportService.editReport.emit(this.reportPendingApproval);
-    this.reportService.deleteReport.emit(this.indexOfReport);
+  onReportForEdit = (indexToRemove) => {
+    // this.reportService.editReport.emit(this.reportsPendingApproval[indexToRemove]);
+    this.reportService.addReportPendingEdit(this.reportsPendingApproval[indexToRemove])
+    this.reportService.onReportRejected(indexToRemove);
+
+    // this.reportService.deleteReport.emit(this.indexOfReport);
 
   }
 
