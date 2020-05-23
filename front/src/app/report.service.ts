@@ -17,12 +17,8 @@ export class ReportService {
 
   constructor (private http: HttpClient) {}
 
-  onReportCreate = (report: appForm) => {
-    this.reportsPendingApproval.push(report);
-  }
-  onReportRejected = (reportNum: number) => {
-    this.reportsPendingApproval.splice(reportNum, 1);
-  }
+
+
   getReportApprovedListener () {
     return this.reportUpdated.asObservable();
   }
@@ -46,6 +42,10 @@ export class ReportService {
       this.reportUpdated.next([...this.reportsPendingApproval])
     });
   }
+
+  onReportCreate = (report: appForm) => {
+    this.reportsPendingApproval.push(report);
+  }
   addReportToPendingApproval = (report: appForm) => {
     // return this.reportsPendingApproval;
     this.http.post<{message: string}>
@@ -55,6 +55,9 @@ export class ReportService {
       // this.reportUpdated.next([...this.reportsPendingApproval])
     });
   }
+  onReportRejected = (reportNum: number) => {
+    this.reportsPendingApproval.splice(reportNum, 1);
+  }
   deleteReportFromPendingApproval = (reportId: number) => {
     this.http.delete<{message: string}>
     ('http://localhost:3000/api/deletereport/'+reportId).subscribe((resData) => {
@@ -62,6 +65,7 @@ export class ReportService {
 
     });
   }
+
   approveReportFromPendingApproval = (report: appForm) => {
     // return this.reportsPendingApproval;
     this.http.put<{message: string}>
@@ -74,9 +78,6 @@ export class ReportService {
 
   getReportsPendingEdit = () => {
     return this.reportsPendingEdit;
-  }
-  getReportPendingEditLength = () => {
-    return this.reportsPendingEdit.length;
   }
   addReportPendingEdit = (report: appForm) => {
     console.log(report);

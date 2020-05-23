@@ -10,13 +10,20 @@ import { ReportFormComponent } from './report-form/report-form.component';
 import { ApprovalFormComponent } from './approval-form/approval-form.component';
 import { ViewReportComponent } from './view-report/view-report.component';
 import { ReportService } from './report.service';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
+
+
+
 
 const appRoutes: Routes = [
   {path: '', component: ViewReportComponent},
   {path: 'viewreport', component: ViewReportComponent},
   {path: 'reportapproval', component: ApprovalFormComponent},
   {path: 'editreport', component: ReportFormComponent},
-  {path: 'createreport', component: ReportFormComponent}
+  {path: 'createreport', component: ReportFormComponent},
+  {path: 'signup', component: SignupComponent},
+  {path: 'login', component: LoginComponent}
 ]
 
 @NgModule({
@@ -25,7 +32,9 @@ const appRoutes: Routes = [
     NavBarComponent,
     ReportFormComponent,
     ApprovalFormComponent,
-    ViewReportComponent
+    ViewReportComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule, FormsModule, RouterModule.forRoot(appRoutes),HttpClientModule
