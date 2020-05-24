@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { appForm, tokenInfo } from '../app.model';
 import { ReportService } from '../report.service';
 import { Subscription } from 'rxjs';
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './approval-form.component.html',
   styleUrls: ['./approval-form.component.css']
 })
-export class ApprovalFormComponent implements OnInit {
+export class ApprovalFormComponent implements OnInit, OnDestroy {
 
   reportsPendingApproval: appForm[] = [];
   token: tokenInfo = this.reportService.getToken();
@@ -24,7 +24,7 @@ export class ApprovalFormComponent implements OnInit {
       .subscribe((reports: appForm[]) => {
         this.reportsPendingApproval = reports
     })
-    if(this.token.getAuth() === 'admin'){
+    if(this.reportService.getIsUserLoggedIn() && this.reportService.getToken().getAuth() === "admin"){
       this.login = true;
     }
   }
@@ -47,6 +47,10 @@ export class ApprovalFormComponent implements OnInit {
     this.reportService.onReportRejected(indexToRemove);
     this.reportsPendingApproval.splice(indexToRemove, 1);
 
+
+  }
+  ngOnDestroy():void{
+    this.reportSub.unsubscribe();
   }
 
 }

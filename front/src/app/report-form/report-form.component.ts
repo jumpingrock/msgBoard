@@ -16,13 +16,14 @@ export class ReportFormComponent implements OnInit {
   editReport: appForm[];
   editReportIndex: number;
   login: boolean = false;
+  auth: string = '';
   token: tokenInfo = this.reportService.getToken();
 
 
   constructor(private reportService: ReportService, private router: Router) {  }
 
   ngOnInit(): void {
-    if(this.token.getAuth() === 'admin'){
+    if(this.reportService.getIsUserLoggedIn()){
       this.login = true;
     }
     if(this.router.url === '/editreport' && this.login) {
@@ -31,16 +32,17 @@ export class ReportFormComponent implements OnInit {
         this.report = this.editReport[0].report;
         this.username = this.editReport[0].username
       }
-
     }
+  }
+  onLogOut = () => {
+
   }
   buttonOnClick = () => {
 
     this.currentTimeStamp = new Date();
     this.createReport = new appForm(this.username, this.currentTimeStamp.toString(), this.report);
-    // this.reportService.reportCreated.emit(this.createReport);
     this.reportService.addReportToPendingApproval(this.createReport);
-    if(this.router.url === '/editreport' && this.editReport.length >= 2){
+    if(this.router.url === '/editreport'){
       this.editReport.splice(0,1);
       this.report = this.editReport[0].report;
       this.username = this.editReport[0].username;

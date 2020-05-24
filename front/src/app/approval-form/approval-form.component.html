@@ -1,3 +1,6 @@
+<div class="col-xl-12" *ngIf="!login">
+  <h3>Please login as admin to approve report</h3>
+</div>
 <div class="container" *ngIf="login">
   <div class="row" *ngFor="let report of reportsPendingApproval; let indexOfReport = index">
     <div class="col-xs-5">

@@ -1,8 +1,9 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { appForm, userForm, tokenInfo } from './app.model';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { sha256, sha224 } from 'js-sha256';
+import { Router } from '@angular/router';
 
 @Injectable({providedIn: 'root'})
 
@@ -13,15 +14,16 @@ export class ReportService {
   private reportsApproved: appForm[] = [];
   private userLoginInfo: userForm;
   private token: tokenInfo;
+  private isUserLoggedIn: boolean = false;
   reportUpdated = new Subject<appForm[]>();
   userLogon = new Subject<userForm>();
+  isLogon = new Subject<boolean>();
   reportCreated = new EventEmitter<appForm>();
   editReport = new EventEmitter<appForm>();
   deleteReport = new EventEmitter<number>();
 
-  constructor (private http: HttpClient) {}
 
-
+  constructor (private http: HttpClient, private router: Router) {}
 
   getReportApprovedListener () {
     return this.reportUpdated.asObservable();
@@ -51,16 +53,15 @@ export class ReportService {
     this.reportsPendingApproval.push(report);
   }
   addReportToPendingApproval = (report: appForm) => {
-    // return this.reportsPendingApproval;
     this.http.post<{message: string}>
     ('http://localhost:3000/api/submitreport', report).subscribe((resData) => {
       console.log(resData.message);
-      // this.reportsPendingApproval = resData.reports;
-      // this.reportUpdated.next([...this.reportsPendingApproval])
     });
   }
   onReportRejected = (reportNum: number) => {
     this.reportsPendingApproval.splice(reportNum, 1);
+    this.deleteReportFromPendingApproval(reportNum);
+    // this.router.navigate(['editreport']);
   }
   deleteReportFromPendingApproval = (reportId: number) => {
     this.http.delete<{message: string}>
@@ -75,8 +76,6 @@ export class ReportService {
     this.http.put<{message: string}>
     ('http://localhost:3000/api/approvereport', report).subscribe((resData) => {
       console.log(resData.message);
-      // this.reportsPendingApproval = resData.reports;
-      // this.reportUpdated.next([...this.reportsPendingApproval])
     });
   }
 
@@ -89,13 +88,13 @@ export class ReportService {
     console.log(this.reportsPendingEdit);
   }
 
-  setUserLoginInfo = (info: userForm) => {
-    this.userLoginInfo = info;
-    console.log(info);
-  }
-  getUserLoginInfo = () => {
-    return this.userLoginInfo;
-  }
+  // setUserLoginInfo = (info: userForm) => {
+  //   this.userLoginInfo = info;
+  //   console.log(info);
+  // }
+  // getUserLoginInfo = () => {
+  //   return this.userLoginInfo;
+  // }
   userLoginListener () {
     return this.userLogon.asObservable();
   }
@@ -104,11 +103,19 @@ export class ReportService {
     this.http.post<{message: string, logonInfo: any}>
     ('http://localhost:3000/api/login', user).subscribe((resData) => {
       console.log(resData.logonInfo);
+      this.isUserLoggedIn = true;
       this.token = new tokenInfo(resData.logonInfo.token, resData.logonInfo.auth);
-      console.log(this.token);
-      // this.reportsPendingApproval = resData.reports;
-      // this.reportUpdated.next([...this.reportsPendingApproval])
+      this.isLogon.next(this.isUserLoggedIn);
+      this.router.navigate(['createreport']);
+
     });
+  }
+  onLogout = () => {
+    this.isUserLoggedIn = false;
+    this.userLoginInfo = null;
+  }
+  getIsUserLoggedIn() {
+    return this.isUserLoggedIn;
   }
   getToken = () => {
     return this.token;
@@ -118,8 +125,8 @@ export class ReportService {
     this.http.post<{message: string}>
     ('http://localhost:3000/api/signup', user).subscribe((resData) => {
       console.log(resData.message);
-      // this.reportsPendingApproval = resData.reports;
-      // this.reportUpdated.next([...this.reportsPendingApproval])
+      this.router.navigate(['login']);
+
     });
   }
 

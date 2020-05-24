@@ -10,23 +10,19 @@ import { ReportService } from './report.service';
 export class AppComponent {
 
   constructor(private reportService: ReportService) {
-    reportService.reportCreated.subscribe(
-      (newReport: appForm) => {this.onReportSubmitted(newReport);})
+    // reportService.reportCreated.subscribe(
+    //   (newReport: appForm) => {this.onReportSubmitted(newReport);})
 
   }
 
   title = 'Reporting App';
-  // reportsPendingApproval: appForm[] = this.reportService.getReportsPendingApproval();
 
-  //todo
+  // onReportSubmitted = (reportSubmitted: appForm) => {
+  //   this.reportsPendingApproval.push(reportSubmitted);
 
-  onReportSubmitted = (reportSubmitted: appForm) => {
-    // this.reportsPendingApproval.push(reportSubmitted);
-
-  }
+  // }
 
 
 
 }
-  //event reciver from reportform and append report to reportsPendingApproval -- Done
-  //event emitter to reportform if edit is clicked -- outsource to service
+

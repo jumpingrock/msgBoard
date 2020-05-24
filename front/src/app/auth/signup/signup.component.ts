@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { userForm } from 'src/app/app.model';
 import { ReportService } from 'src/app/report.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,7 +13,7 @@ export class SignupComponent implements OnInit {
   username: string='';
   password: string='';
 
-  constructor(private reportService: ReportService) { }
+  constructor(private reportService: ReportService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -20,6 +21,7 @@ export class SignupComponent implements OnInit {
   onSignUpClicked = () => {
     this.userSignUp  = new userForm(this.username, this.password);
     this.reportService.userSignUp(this.userSignUp);
+
   }
 
 }

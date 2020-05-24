@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ReportService } from '../report.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { userForm, tokenInfo } from '../app.model';
 
 @Component({
@@ -8,35 +8,29 @@ import { userForm, tokenInfo } from '../app.model';
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
-export class NavBarComponent implements OnInit {
+export class NavBarComponent implements OnInit, OnDestroy {
   collapsed: boolean = true;
-  showCreateReport: boolean = true;
-  showApproveReport: boolean = true;
+  // showCreateReport: boolean = true;
+  // showApproveReport: boolean = true;
+  // userLoggedIn: boolean = false;
   loginSub: Subscription;
-  userLoggedIn: boolean = false;
+  login: boolean = false;
   token: tokenInfo = this.reportService.getToken();
   constructor(private reportService: ReportService) { }
 
   ngOnInit(): void {
-    this.loginSub = this.reportService.userLoginListener()
-      .subscribe((user: userForm) => {
-        this.userLoggedIn = true;
+    this.loginSub = this.reportService.isLogon
+      .subscribe((logon) => {
+        console.log(logon);
+        this.login = logon;
     })
-    if(this.token.getToken) {
-      this.userLoggedIn = true;
-    }
   }
-  onShowCreateReport () {
-    this.showApproveReport = false;
-    this.showCreateReport = true;
+  onLogOut = () => {
+    this.reportService.onLogout();
+  }
 
-  }
-  onShowApproveReport () {
-    this.showApproveReport = true;
-    this.showCreateReport = false;
-  }
-  onShowPendingReport () {
-
+  ngOnDestroy(): void {
+    this.loginSub.unsubscribe();
   }
 
 }

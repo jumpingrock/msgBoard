@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { appForm } from '../app.model';
 import { ReportService } from '../report.service';
 import { Subscription } from 'rxjs';
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './view-report.component.html',
   styleUrls: ['./view-report.component.css']
 })
-export class ViewReportComponent implements OnInit {
+export class ViewReportComponent implements OnInit, OnDestroy {
 
   reportsApproved: appForm[] = [];
   private reportSub: Subscription
@@ -24,6 +24,10 @@ export class ViewReportComponent implements OnInit {
         })
   }
   indexOfReport:number = this.reportsApproved.length;
+
+  ngOnDestroy():void{
+    this.reportSub.unsubscribe();
+  }
 
 }
 
