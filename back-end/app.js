@@ -34,6 +34,59 @@ app.post("/api/submitreport", (req, res, next) => {
         });
     });
 })
+app.get('/api/reportspendingedit',(req, res, next) => {
+    var reportsSent;
+    fs.readFile('reportsediting.json', (err, data) => {
+        if(err) throw err;
+        reportsSent = JSON.parse(data);
+        
+        res.status(200).json({
+            message: 'Post fetch successful!',
+            reports: reportsSent
+        });
+    });
+    
+});
+app.post("/api/addreporttoediting", (req, res, next) => {
+    let report = req.body;
+    let reports = [];
+    fs.readFile('reportsediting.json', (err, data) => {
+        if(err) throw err;
+        this.reports = JSON.parse(data);
+
+        console.log(reports);
+        report.indexNumber = this.reports.length;
+        this.reports.push(report);
+
+        data = JSON.stringify(this.reports, null, 2);
+        fs.writeFile('reportsediting.json', data, (err) => {
+            if(err) throw err
+        })
+        res.status(201).json({
+        message: 'Report added successfully!'
+        });
+    });
+})
+app.delete("/api/deleteeditreport/:id", (req, res, next) => {
+    console.log(req.params.id);
+    let reportNum = req.params.id
+    let reports = [];
+    fs.readFile('reportsediting.json', (err, data) => {
+        if(err) throw err;
+        this.reports = JSON.parse(data);
+
+        console.log(reports);
+        this.reports.splice(reportNum,1);
+
+        data = JSON.stringify(this.reports, null, 2);
+        fs.writeFile('reportsediting.json', data, (err) => {
+            if(err) throw err
+        })
+        res.status(202).json({
+        message: 'Report deleted successfully!'
+        });
+    });
+})
 app.put("/api/approvereport", (req, res, next) => {
     let report = req.body;
     let reports = [];
@@ -73,7 +126,7 @@ app.delete("/api/deletereport/:id", (req, res, next) => {
         fs.writeFile('reportspending.json', data, (err) => {
             if(err) throw err
         })
-        res.status(201).json({
+        res.status(202).json({
         message: 'Report deleted successfully!'
         });
     });
@@ -120,23 +173,21 @@ app.post('/api/login',(req, res, next) => {
             if(users[i].username === user.username){
                 if(users[i].password === user.password){
                     
-                    // res.status(200).json({
-                    //     message: 'Post fetch successful!',
-                    //     logonInfo: user
-                    // });
                     return res.status(200).json({
                         message: 'Post fetch successful!',
                         logonInfo: {token: sha256(user.username + 'kleenex'), auth: users[i].type}
+                    });
+                }else {
+                    return res.status(501).json({
+                        message: 'Login error',
+                        logonInfo: null
                     });
                 }
                 
             }
         }
     });
-    // res.status(501).json({
-    //         message: 'Login error',
-    //         logonInfo: null
-    // });
+    
 });
 
 app.post("/api/signup", (req, res, next) => {
@@ -147,7 +198,7 @@ app.post("/api/signup", (req, res, next) => {
         users = JSON.parse(data);
         for (let i=0; i<users.length; i++) {
             if(user.username === users[i].username){
-                return res.status(502).json({
+                return res.status(418).json({
                     message: 'User already exist!'
                     });
             }

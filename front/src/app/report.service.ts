@@ -18,9 +18,10 @@ export class ReportService {
   reportUpdated = new Subject<appForm[]>();
   userLogon = new Subject<userForm>();
   isLogon = new Subject<boolean>();
-  reportCreated = new EventEmitter<appForm>();
-  editReport = new EventEmitter<appForm>();
-  deleteReport = new EventEmitter<number>();
+  editReportSub = new Subject<appForm[]>();
+  // reportCreated = new EventEmitter<appForm>();
+  // editReport = new EventEmitter<appForm>();
+  // deleteReport = new EventEmitter<number>();
 
 
   constructor (private http: HttpClient, private router: Router) {}
@@ -80,6 +81,13 @@ export class ReportService {
   }
 
   getReportsPendingEdit = () => {
+    this.http.get<{message: string, reports: appForm[]}>
+    ('http://localhost:3000/api/reportspendingedit').subscribe((resData) => {
+      this.reportsPendingEdit = resData.reports;
+      console.log(resData.message);
+      this.editReportSub.next([...this.reportsPendingEdit])
+
+    });
     return this.reportsPendingEdit;
   }
   addReportPendingEdit = (report: appForm) => {
@@ -87,14 +95,6 @@ export class ReportService {
     this.reportsPendingEdit.push(report);
     console.log(this.reportsPendingEdit);
   }
-
-  // setUserLoginInfo = (info: userForm) => {
-  //   this.userLoginInfo = info;
-  //   console.log(info);
-  // }
-  // getUserLoginInfo = () => {
-  //   return this.userLoginInfo;
-  // }
   userLoginListener () {
     return this.userLogon.asObservable();
   }
