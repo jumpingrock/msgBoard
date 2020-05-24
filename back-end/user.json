@@ -1,7 +1,10 @@
 [
-    {
-        "username": "ken",
-        "password": "123", 
-        "type": "admin"    
-    }
+  {
+    "username": "ken",
+    "password": "8eea87694c86eb276846ace1278b810b0fb995c963e8f3264952115e2bd771a4"
+  },
+  {
+    "username": "123",
+    "password": "81d40d94fee4fb4eeb1a21bb7adb93c06aad35b929c1a2b024ae33b3a9b79e23"
+  }
 ]

@@ -1,6 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const bodyParser = require('body-parser');
+var sha256 = require('js-sha256').sha256;
 
 const app = express();
 
@@ -109,46 +110,52 @@ app.get('/api/reportspending',(req, res, next) => {
 
 app.post('/api/login',(req, res, next) => {
     var user= req.body;
+    let users = [];
     fs.readFile('user.json', (err, data) => {
         if(err) throw err;
+        users = JSON.parse(data);
+        // consolß
+        for (let i=0; i<users.length; i++) {
 
-        let allUser = JSON.parse(data);
-        
-        for (let i=0; i<allUser.length; i++) {
-
-            if(allUser[i].username === user.username){
-                if(allUser[i].password === user.password){
+            if(users[i].username === user.username){
+                if(users[i].password === user.password){
                     
                     res.status(200).json({
                         message: 'Post fetch successful!',
-                        logonInfo: allUser[i]
+                        logonInfo: user
                 });
                 }
                 
             }
         }
-
     });
-
+    // res.status(501).json({
+    //         message: 'Login error',
+    //         logonInfo: null
+    // });
 });
 
 app.post("/api/signup", (req, res, next) => {
-    let report = req.body;
-    let reports = [];
+    let user = req.body;
+    let users = [];
     fs.readFile('user.json', (err, data) => {
         if(err) throw err;
-        this.reports = JSON.parse(data);
+        users = JSON.parse(data);
+        for (let i=0; i<users.length; i++) {
+            if(user.username === users[i].username){
+                res.status(502).json({
+                    message: 'User already exist!'
+                    });
+            }
+        }
+        users.push(user);
 
-        console.log(reports);
-        report.indexNumber = this.reports.length;
-        this.reports.push(report);
-
-        data = JSON.stringify(this.reports, null, 2);
-        fs.writeFile('reportspending.json', data, (err) => {
+        data = JSON.stringify(users, null, 2);
+        fs.writeFile('user.json', data, (err) => {
             if(err) throw err
         })
         res.status(201).json({
-        message: 'Report added successfully!'
+        message: 'User added successfully!'
         });
     });
 })

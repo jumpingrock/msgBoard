@@ -2,6 +2,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { appForm, userForm } from './app.model';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
+import { sha256, sha224 } from 'js-sha256';
 
 @Injectable({providedIn: 'root'})
 
@@ -98,9 +99,18 @@ export class ReportService {
     return this.userLogon.asObservable();
   }
   userLogin = (user: userForm) => {
-    // return this.reportsPendingApproval;
+    user.password = sha256(user.password + 'salt');
     this.http.post<{message: string, logonInfo: appForm}>
     ('http://localhost:3000/api/login', user).subscribe((resData) => {
+      console.log(resData.message);
+      // this.reportsPendingApproval = resData.reports;
+      // this.reportUpdated.next([...this.reportsPendingApproval])
+    });
+  }
+  userSignUp = (user: userForm) => {
+    user.password = sha256(user.password + 'salt');
+    this.http.post<{message: string, logonInfo: appForm}>
+    ('http://localhost:3000/api/signup', user).subscribe((resData) => {
       console.log(resData.message);
       // this.reportsPendingApproval = resData.reports;
       // this.reportUpdated.next([...this.reportsPendingApproval])
