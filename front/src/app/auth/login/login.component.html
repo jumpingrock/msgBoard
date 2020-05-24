@@ -10,6 +10,7 @@
           <button class="btn-group btn-group-sm" (click)="onLoginClicked()">Login</button>
           <a routerLink="/signup" routerLinkActive='active'><span> Signup</span></a>
         </div>
+        <p *ngIf="login">Please enter the correct username and / or password</p>
       </form>
     </div>
   </div>

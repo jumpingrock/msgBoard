@@ -28,14 +28,19 @@ export class userForm {
 export class tokenInfo {
   private token: string = '';
   private auth: string = '';
+  private id: string ='';
+  getId = () => {
+    return this.id;
+  }
   getToken() {
     return this.token;
   }
   getAuth() {
     return this.auth;
   }
-  public constructor(token: string, auth: string) {
+  public constructor(token: string, auth: string, id: string) {
     this.token = token;
     this.auth = auth;
+    this.id = id;
   }
 }

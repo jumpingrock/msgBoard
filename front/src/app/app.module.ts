@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -12,9 +12,6 @@ import { ViewReportComponent } from './view-report/view-report.component';
 import { ReportService } from './report.service';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
-
-
-
 
 const appRoutes: Routes = [
   {path: '', component: ViewReportComponent},
@@ -38,7 +35,7 @@ const appRoutes: Routes = [
     SignupComponent
   ],
   imports: [
-    BrowserModule, FormsModule, RouterModule.forRoot(appRoutes),HttpClientModule
+    BrowserModule, FormsModule, RouterModule.forRoot(appRoutes),HttpClientModule,ReactiveFormsModule
   ],
   providers: [ReportService],
   bootstrap: [AppComponent]

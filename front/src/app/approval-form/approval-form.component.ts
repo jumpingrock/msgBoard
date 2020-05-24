@@ -43,7 +43,7 @@ export class ApprovalFormComponent implements OnInit, OnDestroy {
   }
 
   onReportForEdit = (indexToRemove) => {
-    this.reportService.addReportPendingEdit(this.reportsPendingApproval[indexToRemove])
+    this.reportService.addReportPendingEdit(this.reportsPendingApproval[indexToRemove]);
     this.reportService.onReportRejected(indexToRemove);
     this.reportsPendingApproval.splice(indexToRemove, 1);
 

@@ -20,8 +20,6 @@ app.post("/api/submitreport", (req, res, next) => {
     fs.readFile('reportspending.json', (err, data) => {
         if(err) throw err;
         this.reports = JSON.parse(data);
-
-        console.log(reports);
         report.indexNumber = this.reports.length;
         this.reports.push(report);
 
@@ -54,7 +52,6 @@ app.post("/api/addreporttoediting", (req, res, next) => {
         if(err) throw err;
         this.reports = JSON.parse(data);
 
-        console.log(reports);
         report.indexNumber = this.reports.length;
         this.reports.push(report);
 
@@ -68,14 +65,12 @@ app.post("/api/addreporttoediting", (req, res, next) => {
     });
 })
 app.delete("/api/deleteeditreport/:id", (req, res, next) => {
-    console.log(req.params.id);
     let reportNum = req.params.id
     let reports = [];
     fs.readFile('reportsediting.json', (err, data) => {
         if(err) throw err;
         this.reports = JSON.parse(data);
 
-        console.log(reports);
         this.reports.splice(reportNum,1);
 
         data = JSON.stringify(this.reports, null, 2);
@@ -96,7 +91,6 @@ app.put("/api/approvereport", (req, res, next) => {
         if(err) throw err;
         this.reports = JSON.parse(data);
 
-        console.log(reports);
         report.indexNumber = this.reports.length;
         report.approve = true;
         this.reports.push(report);
@@ -112,14 +106,13 @@ app.put("/api/approvereport", (req, res, next) => {
 })
 
 app.delete("/api/deletereport/:id", (req, res, next) => {
-    console.log(req.params.id);
+
     let reportNum = req.params.id
     let reports = [];
     fs.readFile('reportspending.json', (err, data) => {
         if(err) throw err;
         this.reports = JSON.parse(data);
 
-        console.log(reports);
         this.reports.splice(reportNum,1);
 
         data = JSON.stringify(this.reports, null, 2);
@@ -175,7 +168,7 @@ app.post('/api/login',(req, res, next) => {
                     
                     return res.status(200).json({
                         message: 'Post fetch successful!',
-                        logonInfo: {token: sha256(user.username + 'kleenex'), auth: users[i].type}
+                        logonInfo: {token: sha256(user.username + 'kleenex'), auth: users[i].type, id: user.username}
                     });
                 }else {
                     return res.status(501).json({

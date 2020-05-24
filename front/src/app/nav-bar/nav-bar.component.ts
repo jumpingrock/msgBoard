@@ -21,7 +21,6 @@ export class NavBarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loginSub = this.reportService.isLogon
       .subscribe((logon) => {
-        console.log(logon);
         this.login = logon;
     })
   }
@@ -32,5 +31,6 @@ export class NavBarComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.loginSub.unsubscribe();
   }
+
 
 }

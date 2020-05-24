@@ -10,18 +10,11 @@ import { ReportService } from './report.service';
 export class AppComponent {
 
   constructor(private reportService: ReportService) {
-    // reportService.reportCreated.subscribe(
-    //   (newReport: appForm) => {this.onReportSubmitted(newReport);})
+
 
   }
 
   title = 'Reporting App';
-
-  // onReportSubmitted = (reportSubmitted: appForm) => {
-  //   this.reportsPendingApproval.push(reportSubmitted);
-
-  // }
-
 
 
 }

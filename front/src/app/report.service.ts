@@ -56,7 +56,7 @@ export class ReportService {
   addReportToPendingApproval = (report: appForm) => {
     this.http.post<{message: string}>
     ('http://localhost:3000/api/submitreport', report).subscribe((resData) => {
-      console.log(resData.message);
+
     });
   }
   onReportRejected = (reportNum: number) => {
@@ -67,7 +67,6 @@ export class ReportService {
   deleteReportFromPendingApproval = (reportId: number) => {
     this.http.delete<{message: string}>
     ('http://localhost:3000/api/deletereport/'+reportId).subscribe((resData) => {
-      console.log(resData.message);
 
     });
   }
@@ -76,7 +75,7 @@ export class ReportService {
     // return this.reportsPendingApproval;
     this.http.put<{message: string}>
     ('http://localhost:3000/api/approvereport', report).subscribe((resData) => {
-      console.log(resData.message);
+
     });
   }
 
@@ -84,16 +83,24 @@ export class ReportService {
     this.http.get<{message: string, reports: appForm[]}>
     ('http://localhost:3000/api/reportspendingedit').subscribe((resData) => {
       this.reportsPendingEdit = resData.reports;
-      console.log(resData.message);
       this.editReportSub.next([...this.reportsPendingEdit])
 
     });
     return this.reportsPendingEdit;
   }
+  deleteReportFromPendingEdit = (reportId: number) => {
+    this.http.delete<{message: string}>
+    ('http://localhost:3000/api/deleteeditreport/'+reportId).subscribe((resData) => {
+
+    });
+  }
   addReportPendingEdit = (report: appForm) => {
-    console.log(report);
     this.reportsPendingEdit.push(report);
-    console.log(this.reportsPendingEdit);
+    this.http.post<{message: string}>
+    ('http://localhost:3000/api/addreporttoediting', report).subscribe((resData) => {
+
+    });
+
   }
   userLoginListener () {
     return this.userLogon.asObservable();
@@ -102,9 +109,8 @@ export class ReportService {
     user.password = sha256(user.password + 'salt');
     this.http.post<{message: string, logonInfo: any}>
     ('http://localhost:3000/api/login', user).subscribe((resData) => {
-      console.log(resData.logonInfo);
       this.isUserLoggedIn = true;
-      this.token = new tokenInfo(resData.logonInfo.token, resData.logonInfo.auth);
+      this.token = new tokenInfo(resData.logonInfo.token, resData.logonInfo.auth, resData.logonInfo.id);
       this.isLogon.next(this.isUserLoggedIn);
       this.router.navigate(['createreport']);
 
@@ -124,7 +130,6 @@ export class ReportService {
     user.password = sha256(user.password + 'salt');
     this.http.post<{message: string}>
     ('http://localhost:3000/api/signup', user).subscribe((resData) => {
-      console.log(resData.message);
       this.router.navigate(['login']);
 
     });

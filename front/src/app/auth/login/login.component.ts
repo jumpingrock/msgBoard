@@ -12,16 +12,16 @@ export class LoginComponent implements OnInit, OnDestroy {
   loginSub: Subscription;
   password: string='';
   username: string='';
+  login: boolean = false;
 
   constructor(private reportService: ReportService) { }
 
   ngOnInit(): void {
     this.reportService.getReportsPendingApproval();
-    // this.loginSub = this.reportService.userLoginListener()
-    //   .subscribe((user: userForm) => {
-    //     this.userLogin = user;
-    //     this.reportService.setUserLoginInfo(user);
-    // })
+    this.loginSub = this.reportService.isLogon
+      .subscribe((logon) => {
+        this.login = !logon;
+    })
   }
 
   onLoginClicked = () => {
@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy():void {
-    // this.loginSub.unsubscribe;
+    this.loginSub.unsubscribe();
   }
 
 }
