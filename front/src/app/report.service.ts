@@ -19,10 +19,6 @@ export class ReportService {
   userLogon = new Subject<userForm>();
   isLogon = new Subject<boolean>();
   editReportSub = new Subject<appForm[]>();
-  // reportCreated = new EventEmitter<appForm>();
-  // editReport = new EventEmitter<appForm>();
-  // deleteReport = new EventEmitter<number>();
-
 
   constructor (private http: HttpClient, private router: Router) {}
 
@@ -119,6 +115,7 @@ export class ReportService {
   onLogout = () => {
     this.isUserLoggedIn = false;
     this.userLoginInfo = null;
+    this.token = null;
   }
   getIsUserLoggedIn() {
     return this.isUserLoggedIn;

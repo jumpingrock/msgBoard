@@ -10,9 +10,6 @@ import { userForm, tokenInfo } from '../app.model';
 })
 export class NavBarComponent implements OnInit, OnDestroy {
   collapsed: boolean = true;
-  // showCreateReport: boolean = true;
-  // showApproveReport: boolean = true;
-  // userLoggedIn: boolean = false;
   loginSub: Subscription;
   login: boolean = false;
   token: tokenInfo = this.reportService.getToken();
