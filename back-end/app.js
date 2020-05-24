@@ -120,10 +120,14 @@ app.post('/api/login',(req, res, next) => {
             if(users[i].username === user.username){
                 if(users[i].password === user.password){
                     
-                    res.status(200).json({
+                    // res.status(200).json({
+                    //     message: 'Post fetch successful!',
+                    //     logonInfo: user
+                    // });
+                    return res.status(200).json({
                         message: 'Post fetch successful!',
-                        logonInfo: user
-                });
+                        logonInfo: {token: sha256(user.username + 'kleenex'), auth: users[i].type}
+                    });
                 }
                 
             }
@@ -143,13 +147,25 @@ app.post("/api/signup", (req, res, next) => {
         users = JSON.parse(data);
         for (let i=0; i<users.length; i++) {
             if(user.username === users[i].username){
-                res.status(502).json({
+                return res.status(502).json({
                     message: 'User already exist!'
                     });
             }
         }
-        users.push(user);
+        fs.readFile('userlogcheck.json', (err, userData) => { 
+            //writing in to file for submit checks
+            if(err) throw err;
+            let userCred = JSON.parse(userData);
+            userCred.push(sha256(user.username + 'kleenex'));
+            userCred = JSON.stringify(userCred, null, 2);
 
+            fs.writeFile('userlogcheck.json', userCred, (err) => {
+                if(err) throw err
+            })
+
+        })
+        users.push(user);
+        
         data = JSON.stringify(users, null, 2);
         fs.writeFile('user.json', data, (err) => {
             if(err) throw err

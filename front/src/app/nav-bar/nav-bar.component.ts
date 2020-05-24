@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ReportService } from '../report.service';
 import { Subscription } from 'rxjs';
-import { userForm } from '../app.model';
+import { userForm, tokenInfo } from '../app.model';
 
 @Component({
   selector: 'app-nav-bar',
@@ -14,6 +14,7 @@ export class NavBarComponent implements OnInit {
   showApproveReport: boolean = true;
   loginSub: Subscription;
   userLoggedIn: boolean = false;
+  token: tokenInfo = this.reportService.getToken();
   constructor(private reportService: ReportService) { }
 
   ngOnInit(): void {
@@ -21,6 +22,9 @@ export class NavBarComponent implements OnInit {
       .subscribe((user: userForm) => {
         this.userLoggedIn = true;
     })
+    if(this.token.getToken) {
+      this.userLoggedIn = true;
+    }
   }
   onShowCreateReport () {
     this.showApproveReport = false;

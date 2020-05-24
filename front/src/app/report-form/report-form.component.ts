@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { appForm } from '../app.model';
+import { appForm, tokenInfo } from '../app.model';
 import { ReportService } from '../report.service';
 import { Router } from '@angular/router';
 
@@ -15,14 +15,23 @@ export class ReportFormComponent implements OnInit {
   createReport: appForm;
   editReport: appForm[];
   editReportIndex: number;
+  login: boolean = false;
+  token: tokenInfo = this.reportService.getToken();
+
 
   constructor(private reportService: ReportService, private router: Router) {  }
 
   ngOnInit(): void {
-    if(this.router.url === '/editreport') {
+    if(this.token.getAuth() === 'admin'){
+      this.login = true;
+    }
+    if(this.router.url === '/editreport' && this.login) {
       this.editReport = this.reportService.getReportsPendingEdit();
-      this.report = this.editReport[0].report;
-      this.username = this.editReport[0].username
+      if(this.editReport.length > 0){
+        this.report = this.editReport[0].report;
+        this.username = this.editReport[0].username
+      }
+
     }
   }
   buttonOnClick = () => {
@@ -31,8 +40,6 @@ export class ReportFormComponent implements OnInit {
     this.createReport = new appForm(this.username, this.currentTimeStamp.toString(), this.report);
     // this.reportService.reportCreated.emit(this.createReport);
     this.reportService.addReportToPendingApproval(this.createReport);
-
-
     if(this.router.url === '/editreport' && this.editReport.length >= 2){
       this.editReport.splice(0,1);
       this.report = this.editReport[0].report;

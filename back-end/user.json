@@ -1,10 +1,17 @@
 [
   {
     "username": "ken",
-    "password": "8eea87694c86eb276846ace1278b810b0fb995c963e8f3264952115e2bd771a4"
+    "password": "8eea87694c86eb276846ace1278b810b0fb995c963e8f3264952115e2bd771a4",
+    "type": "null"
   },
   {
     "username": "123",
-    "password": "81d40d94fee4fb4eeb1a21bb7adb93c06aad35b929c1a2b024ae33b3a9b79e23"
+    "password": "81d40d94fee4fb4eeb1a21bb7adb93c06aad35b929c1a2b024ae33b3a9b79e23",
+    "type": "null"
+  },
+  {
+    "username": "1",
+    "password": "d333caa8477e0ad6c22c1d594b05fa668eee01652f9297c71b3bfdf9cb98c197",
+    "type": "admin"
   }
 ]

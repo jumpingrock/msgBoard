@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { appForm, userForm } from './app.model';
+import { appForm, userForm, tokenInfo } from './app.model';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { sha256, sha224 } from 'js-sha256';
@@ -12,6 +12,7 @@ export class ReportService {
   private reportsPendingEdit: appForm[] = [];
   private reportsApproved: appForm[] = [];
   private userLoginInfo: userForm;
+  private token: tokenInfo;
   reportUpdated = new Subject<appForm[]>();
   userLogon = new Subject<userForm>();
   reportCreated = new EventEmitter<appForm>();
@@ -100,16 +101,21 @@ export class ReportService {
   }
   userLogin = (user: userForm) => {
     user.password = sha256(user.password + 'salt');
-    this.http.post<{message: string, logonInfo: appForm}>
+    this.http.post<{message: string, logonInfo: any}>
     ('http://localhost:3000/api/login', user).subscribe((resData) => {
-      console.log(resData.message);
+      console.log(resData.logonInfo);
+      this.token = new tokenInfo(resData.logonInfo.token, resData.logonInfo.auth);
+      console.log(this.token);
       // this.reportsPendingApproval = resData.reports;
       // this.reportUpdated.next([...this.reportsPendingApproval])
     });
   }
+  getToken = () => {
+    return this.token;
+  }
   userSignUp = (user: userForm) => {
     user.password = sha256(user.password + 'salt');
-    this.http.post<{message: string, logonInfo: appForm}>
+    this.http.post<{message: string}>
     ('http://localhost:3000/api/signup', user).subscribe((resData) => {
       console.log(resData.message);
       // this.reportsPendingApproval = resData.reports;

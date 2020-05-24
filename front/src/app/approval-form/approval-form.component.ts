@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { appForm } from '../app.model';
+import { appForm, tokenInfo } from '../app.model';
 import { ReportService } from '../report.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
@@ -12,8 +12,9 @@ import { Router } from '@angular/router';
 export class ApprovalFormComponent implements OnInit {
 
   reportsPendingApproval: appForm[] = [];
-  // @Input() displayApprovalForm:boolean = false;
+  token: tokenInfo = this.reportService.getToken();
   private reportSub: Subscription
+  login: boolean = false;
   routeURL: string = this.router.url;
 
   constructor(private reportService: ReportService, private router: Router) {  }
@@ -23,6 +24,9 @@ export class ApprovalFormComponent implements OnInit {
       .subscribe((reports: appForm[]) => {
         this.reportsPendingApproval = reports
     })
+    if(this.token.getAuth() === 'admin'){
+      this.login = true;
+    }
   }
   indexOfReport:number = this.reportsPendingApproval.length;
 
